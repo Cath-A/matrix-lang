@@ -4,23 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03bdf9f7-dbf3-45d8-9d79-f7a1864e1216" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/matrix-lang.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/repl.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ast.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/evaluator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lexer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/matrix.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/parser.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/test_matrix.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/test_parser.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/text_lexer.py" afterDir="false" />
+    <list default="true" id="03bdf9f7-dbf3-45d8-9d79-f7a1864e1216" name="Changes" comment="Set up structure">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ast.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ast.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/matrix.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +24,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Cath-A"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Cath-A/matrix-lang.git",
+    "accountId": "12e18263-9bbf-4dca-8bdc-39e125518683"
+  }
+}]]></component>
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 3
 }]]></component>
@@ -74,6 +73,15 @@
       <option name="presentableId" value="Default" />
       <updated>1778957033788</updated>
     </task>
+    <task id="LOCAL-00001" summary="Set up structure">
+      <option name="closed" value="true" />
+      <created>1779101165903</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1779101165903</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -86,5 +94,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Set up structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="Set up structure" />
   </component>
 </project>
