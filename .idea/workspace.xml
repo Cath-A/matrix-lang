@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03bdf9f7-dbf3-45d8-9d79-f7a1864e1216" name="Changes" comment="Create basic classes, Expr, Scalar, MatrixLiteral, BinOp, as well as matrix and vector types">
+    <list default="true" id="03bdf9f7-dbf3-45d8-9d79-f7a1864e1216" name="Changes" comment="Add an environment">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ast.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ast.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/matrix.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +89,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779112758258</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Add an environment">
+      <option name="closed" value="true" />
+      <created>1779113650751</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1779113650751</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -105,6 +114,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Set up structure" />
     <MESSAGE value="Create basic classes, Expr, Scalar, MatrixLiteral, BinOp, as well as matrix and vector types" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create basic classes, Expr, Scalar, MatrixLiteral, BinOp, as well as matrix and vector types" />
+    <MESSAGE value="Add an environment" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add an environment" />
   </component>
 </project>
