@@ -16,6 +16,10 @@ class TokenType(Enum):
     LBRACKET = auto()
     RBRACKET = auto()
     COMMA = auto()
+    PLUS = auto()
+    MINUS = auto()
+    STAR = auto()
+    SLASH = auto()
     SEMICOLON = auto()
     NEWLINE = auto()
     EOF = auto()
@@ -105,6 +109,14 @@ def tokenise(source: str) -> list[Token]:
             token_type = TokenType.RBRACKET
         elif c == ',':
             token_type = TokenType.COMMA
+        elif c == '+':
+            token_type = TokenType.PLUS
+        elif c == '-':
+            token_type = TokenType.MINUS
+        elif c == '*':
+            token_type = TokenType.STAR
+        elif c == '/':
+            token_type = TokenType.SLASH
         elif c == ';':
             token_type = TokenType.SEMICOLON
         elif c == '\n':
