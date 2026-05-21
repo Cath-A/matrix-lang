@@ -248,6 +248,27 @@ class Name(Expr):
             raise NameError(f"name '{self.id}' is not defined")
 
 
+class FuncCall(Expr):
+    """A function call expression.
+
+    Instance Attributes:
+        - name: the name of the function
+        - args: the list of arguments
+    """
+    name: str
+    args: list[Expr]
+
+    def __init__(self, name: str, args: list[Expr]) -> None:
+        """Initialise a new FuncCall node."""
+        self.name = name
+        self.args = args
+
+    # TODO: implement FuncCall evaluate
+    def evaluate(self, env: dict[str, Any]) -> Any:
+        """Evaluate this function call."""
+        raise NotImplementedError
+
+
 # Module
 class Module:
     """A class representing a full matrix-lang program.

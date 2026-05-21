@@ -121,7 +121,3 @@ def tokenise(source: str) -> list[Token]:
 
     tokens.append(Token(TokenType.EOF, None))
     return tokens
-
-print(tokenise("""
-x = 5,453
-"""))
