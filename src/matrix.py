@@ -30,6 +30,10 @@ class Matrix:
         """Return the number of columns."""
         return len(self.rows[0])
 
+    def __repr__(self) -> str:
+        return f'Matrix({self.rows})'
+
+
 class Vector(Matrix):
     """A vector value.
 
@@ -47,3 +51,6 @@ class Vector(Matrix):
 
         if self.num_cols() != 1:
             raise ValueError("Vector must have exactly one column")
+
+    def __repr__(self) -> str:
+        return f'Vector({self.rows})'

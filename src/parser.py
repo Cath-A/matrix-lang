@@ -149,7 +149,7 @@ def _handle_matrix(tokens: list[Token], i: int) -> tuple[Expr, int]:
     while tokens[i].type not in (TokenType.EOF, TokenType.NEWLINE, TokenType.RBRACKET):
         row = []
 
-        while tokens[i].type not in (TokenType.SEMICOLON, TokenType.RBRACKET):
+        while tokens[i].type not in (TokenType.SEMICOLON, TokenType.RBRACKET, TokenType.NEWLINE, TokenType.EOF):
             expression, i = _parse_addition(tokens, i)
             row.append(expression)
             if tokens[i].type == TokenType.COMMA:
@@ -192,6 +192,9 @@ def _parse_atom(tokens: list[Token], i: int) -> tuple[Expr, int]:
 
     elif tokens[i].type == TokenType.LBRACKET:
         expression, i = _handle_matrix(tokens, i)
+
+    elif tokens[i].type == TokenType.NEWLINE:
+        raise SyntaxError("Unexpected end of line in expression")
 
     else:
         raise SyntaxError(f"Unexpected token in atom: {tokens[i].type}")

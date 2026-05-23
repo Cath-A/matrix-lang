@@ -132,6 +132,8 @@ def tokenise(source: str) -> list[Token]:
         elif c.isalpha() or c == '_':
             token_value, i = _read_name(source, i)
             token_type = TokenType.NAME
+        elif c == '.':
+            raise SyntaxError('Numbers must start with a digit, not a decimal point')
         else:
             raise SyntaxError(f'Unexpected character: {c}')
 

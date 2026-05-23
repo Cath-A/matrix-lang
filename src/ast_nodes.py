@@ -48,6 +48,9 @@ class Assign(Statement):
         """
         env[self.target] = self.value.evaluate(env)
 
+    def __repr__(self) -> str:
+        return f'Assign({self.target}, {self.value})'
+
 
 class Print(Statement):
     """A statement representing a call to the `print` function.
@@ -166,6 +169,9 @@ class Scalar(Expr):
         """
         return self.n
 
+    def __repr__(self) -> str:
+        return f'Scalar({self.n})'
+
 
 class MatrixLiteral(Expr):
     """A matrix literal.
@@ -179,10 +185,13 @@ class MatrixLiteral(Expr):
         self.rows = rows
 
     def evaluate(self, env: dict[str, Any]) -> Any:
-        rows = [[expr.evaluate() for expr in row] for row in self.rows]
+        rows = [[expr.evaluate(env) for expr in row] for row in self.rows]
         if all(len(row) == 1 for row in rows):
             return Vector(rows)
         return Matrix(rows)
+
+    def __repr__(self) -> str:
+        return f'MatrixLiteral({self.rows})'
 
 
 class BinOp(Expr):
@@ -223,6 +232,9 @@ class BinOp(Expr):
 
         raise NotImplementedError
 
+    def __repr__(self) -> str:
+        return f'BinOp({self.left}, {self.op}, {self.right})'
+
 
 class Name(Expr):
     """A variable expression.
@@ -247,6 +259,9 @@ class Name(Expr):
         else:
             raise NameError(f"name '{self.id}' is not defined")
 
+    def __repr__(self) -> str:
+        return f'Name({self.id})'
+
 
 class FuncCall(Expr):
     """A function call expression.
@@ -267,6 +282,9 @@ class FuncCall(Expr):
     def evaluate(self, env: dict[str, Any]) -> Any:
         """Evaluate this function call."""
         raise NotImplementedError
+
+    def __repr__(self) -> str:
+        return f'FuncCall({self.name}, {self.args})'
 
 
 # Module
