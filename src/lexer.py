@@ -45,10 +45,10 @@ class Token:
         return f'Token({self.type}, {self.value})'
 
 
-def _read_number(source: str, i: int) -> tuple[str, int]:
+def _read_number(source: str, i: int) -> tuple[int | float, int]:
     """Read a number from source starting at index i.
 
-    Returns the number as a string and the index of the last character.
+    Returns the number as an integer or a float and the index of the last character.
     """
     number = ''
     has_dot = False
@@ -61,7 +61,13 @@ def _read_number(source: str, i: int) -> tuple[str, int]:
             has_dot = True
         number += source[i]
         i += 1
-    return number, i-1
+
+    if has_dot:
+        number = float(number)
+    else:
+        number = int(number)
+
+    return number, i - 1
 
 
 def _read_name(source: str, i: int) -> tuple[str, int]:
@@ -70,10 +76,12 @@ def _read_name(source: str, i: int) -> tuple[str, int]:
     Returns the name as a string and the index of the last character.
     """
     value = ''
+
     while i < len(source) and (source[i].isalpha() or source[i].isdigit() or source[i] == '_'):
         value += source[i]
         i += 1
-    return value, i-1
+
+    return value, i - 1
 
 
 def tokenise(source: str) -> list[Token]:

@@ -44,3 +44,6 @@ class Vector(Matrix):
     def __init__(self, rows: list[list[int | float]]) -> None:
         """Initialise a new vector."""
         super().__init__(rows)
+
+        if self.num_cols() != 1:
+            raise ValueError("Vector must have exactly one column")

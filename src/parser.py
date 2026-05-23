@@ -3,7 +3,7 @@
 Raises ParseError on invalid input.
 """
 from lexer import Token, TokenType
-from ast import *
+from ast_nodes import *
 
 
 def parse(tokens: list[Token]) -> Module:
@@ -76,7 +76,17 @@ def _parse_addition(tokens: list[Token], i: int) -> tuple[Expr, int]:
     Entry point for all expression parsing - always call this first.
     Returns the Expr node at the index of the next unread token.
     """
-    raise NotImplementedError
+    lhs, i = _parse_multiplication(tokens, i)
+
+    while tokens[i].type in (TokenType.PLUS, TokenType.MINUS):
+        op = tokens[i].value
+        i += 1
+
+        rhs, i = _parse_multiplication(tokens, i)
+
+        lhs = BinOp(lhs, op, rhs)
+
+    return lhs, i
 
 
 def _parse_multiplication(tokens: list[Token], i: int) -> tuple[Expr, int]:
@@ -85,9 +95,78 @@ def _parse_multiplication(tokens: list[Token], i: int) -> tuple[Expr, int]:
     Never call directly - called by _parse_addition.
     Returns the Expr node and the index of the next unread token.
     """
-    raise NotImplementedError
+    lhs, i = _parse_atom(tokens, i)
+
+    while tokens[i].type in (TokenType.STAR, TokenType.SLASH):
+        op = tokens[i].value
+        i += 1
+
+        rhs, i = _parse_atom(tokens, i)
+
+        lhs = BinOp(lhs, op, rhs)
+
+    return lhs, i
 
 
+def _handle_function(tokens: list[Token], i: int) -> tuple[Expr, int]:
+    """Parse a function call from source starting at index i.
+
+    Returns the function call as a FuncCall expression and the index of the last USED token.
+    """
+    name = tokens[i].value
+    args = []
+    i += 2
+
+    # CASE 1: empty argument list
+    if tokens[i].type == TokenType.RPAREN:
+        return FuncCall(name, args), i
+
+    # CASE 2: at least 1 argument
+    arg, i = _parse_addition(tokens, i)
+    args.append(arg)
+
+    while tokens[i].type == TokenType.COMMA:
+        i += 1
+        arg, i = _parse_addition(tokens, i)
+        args.append(arg)
+
+    if tokens[i].type != TokenType.RPAREN:
+        raise SyntaxError("Expected ')' to close function call")
+
+    return FuncCall(name, args), i
+
+
+def _handle_matrix(tokens: list[Token], i: int) -> tuple[Expr, int]:
+    """Parse a matrix from source starting at index i.
+
+    Returns the matrix as a MatrixLiteral expression and the index of the last USED token.
+    """
+    i += 1
+    if tokens[i].type == TokenType.RBRACKET:
+        raise SyntaxError("Empty Matrix")
+
+    rows = []
+    while tokens[i].type not in (TokenType.EOF, TokenType.NEWLINE, TokenType.RBRACKET):
+        row = []
+
+        while tokens[i].type not in (TokenType.SEMICOLON, TokenType.RBRACKET):
+            expression, i = _parse_addition(tokens, i)
+            row.append(expression)
+            if tokens[i].type == TokenType.COMMA:
+                i += 1
+
+        rows.append(row)
+        if tokens[i].type == TokenType.SEMICOLON:
+            i += 1
+
+    if tokens[i].type != TokenType.RBRACKET:
+        raise SyntaxError("Expected ']' to close matrix definition")
+
+    matrix = MatrixLiteral(rows)
+    return matrix, i
+
+
+# TODO: rest of the atoms
 def _parse_atom(tokens: list[Token], i: int) -> tuple[Expr, int]:
     """Parse an atomic expression starting at index i.
 
@@ -95,4 +174,27 @@ def _parse_atom(tokens: list[Token], i: int) -> tuple[Expr, int]:
      parenthesised expressions. Never call directly - called by _parse_multiplication.
      Returns the Expr node and the index of the next unread token.
     """
-    raise NotImplementedError
+    if tokens[i].type == TokenType.NUMBER:
+        expression = Scalar(tokens[i].value)
+
+    elif tokens[i].type == TokenType.NAME:
+        if tokens[i + 1].type == TokenType.LPAREN:
+            expression, i = _handle_function(tokens, i)
+        else:
+            expression = Name(tokens[i].value)
+
+    elif tokens[i].type == TokenType.LPAREN:
+        i += 1
+        expression, i = _parse_addition(tokens, i)
+
+        if tokens[i].type != TokenType.RPAREN:
+            raise SyntaxError("Expected ')'")
+
+    elif tokens[i].type == TokenType.LBRACKET:
+        expression, i = _handle_matrix(tokens, i)
+
+    else:
+        raise SyntaxError(f"Unexpected token in atom: {tokens[i].type}")
+
+    i += 1
+    return expression, i

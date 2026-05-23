@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03bdf9f7-dbf3-45d8-9d79-f7a1864e1216" name="Changes" comment="Add function call node to ast">
+    <list default="true" id="03bdf9f7-dbf3-45d8-9d79-f7a1864e1216" name="Changes" comment="Implement parse, _parse_statement and _parse_assign">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ast.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ast_nodes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lexer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/matrix.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -150,7 +153,31 @@
       <option name="project" value="LOCAL" />
       <updated>1779361021982</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Create parser function outline">
+      <option name="closed" value="true" />
+      <created>1779369180803</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1779369180803</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Add +, -, * and / to lexer">
+      <option name="closed" value="true" />
+      <created>1779371661577</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1779371661577</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Implement parse, _parse_statement and _parse_assign">
+      <option name="closed" value="true" />
+      <created>1779373330715</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1779373330715</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -171,6 +198,9 @@
     <MESSAGE value="Add statements" />
     <MESSAGE value="Add lexer with tokenisation for core syntax" />
     <MESSAGE value="Add function call node to ast" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add function call node to ast" />
+    <MESSAGE value="Create parser function outline" />
+    <MESSAGE value="Add +, -, * and / to lexer" />
+    <MESSAGE value="Implement parse, _parse_statement and _parse_assign" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement parse, _parse_statement and _parse_assign" />
   </component>
 </project>

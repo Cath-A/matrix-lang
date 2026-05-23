@@ -204,7 +204,7 @@ class BinOp(Expr):
         """Initialise a new binary operation expression.
 
         Preconditions:
-            - op in {'+', '*'}
+            - op in {'+', '-', '*', '/'}
         """
         self.left = left
         self.op = op
