@@ -1,6 +1,6 @@
 """Matrix value type for matrix-lang."""
 
-# TODO: add __str__ function
+
 class Matrix:
     """A matrix value.
 

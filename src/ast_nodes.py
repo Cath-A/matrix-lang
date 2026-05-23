@@ -300,9 +300,11 @@ class Module:
         """Initialise a new module with the given body."""
         self.body = body
 
-    def evaluate(self) -> None:
+    def evaluate(self, env: dict = None) -> None:
         """Evaluate this statement with the given environment.
         """
-        env = {}
+        if env is None:
+            env = {}
+
         for statement in self.body:
             statement.evaluate(env)
