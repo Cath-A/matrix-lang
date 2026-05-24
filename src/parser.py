@@ -95,7 +95,7 @@ def _parse_multiplication(tokens: list[Token], i: int) -> tuple[Expr, int]:
     Never call directly - called by _parse_addition.
     Returns the Expr node and the index of the next unread token.
     """
-    lhs, i = _parse_atom(tokens, i)
+    lhs, i = _parse_unary(tokens, i)
 
     while tokens[i].type in (TokenType.STAR, TokenType.SLASH):
         op = tokens[i].value
@@ -164,6 +164,21 @@ def _handle_matrix(tokens: list[Token], i: int) -> tuple[Expr, int]:
 
     matrix = MatrixLiteral(rows)
     return matrix, i
+
+
+def _parse_unary(tokens: list[Token], i: int) -> tuple[Expr, int]:
+    """Parse unary + and - operators."""
+    if tokens[i].type == TokenType.MINUS:
+        i += 1
+        operand, i = _parse_unary(tokens, i)
+        return UnaryOp('-', operand), i
+
+    if tokens[i].type == TokenType.PLUS:
+        i += 1
+        operand, i = _parse_unary(tokens, i)
+        return UnaryOp('+', operand), i
+
+    return _parse_atom(tokens, i)
 
 
 # TODO: rest of the atoms

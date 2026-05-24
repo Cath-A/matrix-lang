@@ -1,7 +1,6 @@
 """AST node defintions for matrix-lang."""
-
-from typing import Any, Optional
 from matrix import *
+from typing import Optional, Any
 
 
 class Statement:
@@ -19,7 +18,10 @@ class Statement:
         """
         raise NotImplementedError
 
-# Statements
+
+"""Statements"""
+
+
 class Expr(Statement):
     """An abstract class representing a matrix-lang expression.
     """
@@ -72,7 +74,9 @@ class Print(Statement):
         print(self.argument.evaluate(env))
 
 
-# Control flow statements
+""" Control flow statements"""
+
+
 class If(Statement):
     """An if statement.
 
@@ -147,7 +151,10 @@ class ForRange(Statement):
             for statement in self.body:
                 statement.evaluate(env)
 
-# Expressions
+
+"""Expressions"""
+
+
 class Scalar(Expr):
     """A numeric literal.
 
@@ -194,6 +201,40 @@ class MatrixLiteral(Expr):
         return f'MatrixLiteral({self.rows})'
 
 
+class UnaryOp(Expr):
+    """A unary arithmetic operation.
+
+    Instance Attributes:
+        - op: the operator symbol ('-' or '+')
+        - operand: the expression being operated on
+
+    Representation Invariants:
+        - self.op in {'-', '+'}
+    """
+    op: str
+    operand: Expr
+
+    def __init__(self, op: str, operand: Expr) -> None:
+        """Initialise a new unary operation expression.
+
+        Preconditions:
+            - op in {'-', '+'}
+        """
+        self.op = op
+        self.operand = operand
+
+    def evaluate(self, env: dict[str, Any]) -> Any:
+        """Evaluate this unary operation."""
+        value = self.operand.evaluate(env)
+
+        if self.op == '-':
+            return -value
+        if self.op == '+':
+            return value
+
+        raise SyntaxError(f"Unknown unary operator {self.op}")
+
+
 class BinOp(Expr):
     """An arithmetic binary operation.
 
@@ -203,7 +244,7 @@ class BinOp(Expr):
         - right: the right operand
 
     Representation Invariants:
-        - self.op in {'+', '*'}
+        - self.op in {'+', '-', '*', '/'}
     """
     left: Expr
     op: str
@@ -219,7 +260,6 @@ class BinOp(Expr):
         self.op = op
         self.right = right
 
-    # TODO: implement evaluate function
     def evaluate(self, env: dict[str, Any]) -> Any:
         """Return the *value* of this expression.
 
@@ -227,10 +267,19 @@ class BinOp(Expr):
         >>> expr.evaluate()
         40.5
         """
-        left_val = self.left.evaluate()
-        right_val = self.right.evaluate()
+        left = self.left.evaluate(env)
+        right = self.right.evaluate(env)
 
-        raise NotImplementedError
+        if self.op == '+':
+            return left + right
+        elif self.op == '-':
+            return left - right
+        elif self.op == '*':
+            return left * right
+        elif self.op == '/':
+            return left / right
+        else:
+            raise TypeError(f"Unsupported operator '{self.op}' for evaluated values")
 
     def __repr__(self) -> str:
         return f'BinOp({self.left}, {self.op}, {self.right})'

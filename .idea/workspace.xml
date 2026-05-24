@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03bdf9f7-dbf3-45d8-9d79-f7a1864e1216" name="Changes" comment="Add better error messages and ability __repr__ to functions">
-      <change afterPath="$PROJECT_DIR$/src/test.ml.py" afterDir="false" />
+    <list default="true" id="03bdf9f7-dbf3-45d8-9d79-f7a1864e1216" name="Changes" comment="Add repl">
+      <change afterPath="$PROJECT_DIR$/src/errors.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ast_nodes.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ast_nodes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/repl.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lexer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/matrix.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,18 +47,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.lexer.executor": "Run",
-    "Python.repl.executor": "Run",
-    "Python.testing.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.lexer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.repl.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testing.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -241,7 +242,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779530973607</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Add repl">
+      <option name="closed" value="true" />
+      <created>1779572334834</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1779572334834</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -267,6 +276,7 @@
     <MESSAGE value="Implement parse, _parse_statement and _parse_assign" />
     <MESSAGE value="Implement _parse_addition, _parse_multiplication, and basics of _parse_atom" />
     <MESSAGE value="Add better error messages and ability __repr__ to functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add better error messages and ability __repr__ to functions" />
+    <MESSAGE value="Add repl" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add repl" />
   </component>
 </project>

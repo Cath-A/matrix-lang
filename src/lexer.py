@@ -2,6 +2,7 @@
 
 from typing import Any
 from enum import Enum, auto
+from dataclasses import dataclass
 
 
 class TokenType(Enum):
@@ -25,6 +26,7 @@ class TokenType(Enum):
     EOF = auto()
 
 
+@dataclass
 class Token:
     """A single token produced by the lexer.
 
@@ -34,15 +36,6 @@ class Token:
     """
     type: TokenType
     value: Any
-
-    def __init__(self, type: TokenType, value: Any) -> None:
-        """Initialise a new token."""
-        self.type = type
-        self.value = value
-
-    def __repr__(self) -> str:
-        """Return a string representation of this token."""
-        return f'Token({self.type}, {self.value})'
 
 
 def _read_number(source: str, i: int) -> tuple[int | float, int]:
