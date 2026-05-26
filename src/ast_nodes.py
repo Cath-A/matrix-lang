@@ -1,6 +1,7 @@
 """AST node defintions for matrix-lang."""
 from matrix import *
 from typing import Optional, Any
+from constants import BUILTINS
 
 
 class Statement:
@@ -194,7 +195,9 @@ class MatrixLiteral(Expr):
     def evaluate(self, env: dict[str, Any]) -> Any:
         rows = [[expr.evaluate(env) for expr in row] for row in self.rows]
         if all(len(row) == 1 for row in rows):
-            return Vector(rows)
+            return ColumnVector(rows)
+        if len(rows) == 1:
+            return RowVector(rows)
         return Matrix(rows)
 
     def __repr__(self) -> str:
@@ -330,7 +333,12 @@ class FuncCall(Expr):
     # TODO: implement FuncCall evaluate
     def evaluate(self, env: dict[str, Any]) -> Any:
         """Evaluate this function call."""
-        raise NotImplementedError
+        evaluated_args = [arg.evaluate(env) for arg in self.args]
+
+        if self.name not in BUILTINS:
+            raise NameError(f"Unknown function '{self.name}'")
+
+        return BUILTINS[self.name](*evaluated_args)
 
     def __repr__(self) -> str:
         return f'FuncCall({self.name}, {self.args})'
