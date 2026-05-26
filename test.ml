@@ -1,7 +1,6 @@
-A = [1, 2; 3, 4]
-x = 10
-B = [1; 2; 3]
-print([1, 2, 3])
+A = [1, 2, 3]
+B = [2; 4; 6]
+
 print(A)
-print(B*A)
-print(A*x)
+print(B)
+print(A * B)

@@ -40,7 +40,7 @@ class Matrix:
         return len(self.rows[0])
 
     def dimensions(self) -> tuple[int, int]:
-        """Return the dimensions of the matrix in the form [row, column]."""
+        """Return the dimensions of the matrix in the form (row, column)."""
         return self.num_rows(), self.num_cols()
 
     def __neg__(self) -> Matrix:
@@ -82,7 +82,7 @@ class Matrix:
 
         return self + (-other)
 
-    def __mul__(self, other: int | float | Matrix) -> Matrix:
+    def __mul__(self, other: int | float | Matrix) -> Matrix | int | float:
         """Return the matrix multiplication of self * other"""
         if isinstance(other, (int, float)):
             return type(self)([
@@ -98,7 +98,13 @@ class Matrix:
                     f"{other.num_rows()}x{other.num_cols()} (inner dimensions must match)"
                 )
 
-            return matrix_multiply(self, other)
+
+            result = matrix_multiply(self, other)
+
+            if result.dimensions() == (1, 1):
+                return result.rows[0][0]
+
+            return result
 
         raise MatrixTypeError(f"Cannot multiply Matrix and {type(other).__name__}")
 

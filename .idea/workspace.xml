@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03bdf9f7-dbf3-45d8-9d79-f7a1864e1216" name="Changes" comment="Allow for negation, addition and subtraction">
-      <change afterPath="$PROJECT_DIR$/src/math_helpers.py" afterDir="false" />
+    <list default="true" id="03bdf9f7-dbf3-45d8-9d79-f7a1864e1216" name="Changes" comment="Add formatting for nice printing of matrices">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repl.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ast_nodes.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ast_nodes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/matrix.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.ml" beforeDir="false" afterPath="$PROJECT_DIR$/test.ml" afterDir="false" />
     </list>
@@ -258,7 +255,39 @@
       <option name="project" value="LOCAL" />
       <updated>1779622477592</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Allow for print statements and column vectors">
+      <option name="closed" value="true" />
+      <created>1779825950209</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1779825950209</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Add constants">
+      <option name="closed" value="true" />
+      <created>1779825964007</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1779825964007</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Math helper for matrix operations such as multiplication">
+      <option name="closed" value="true" />
+      <created>1779825984374</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1779825984374</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Add formatting for nice printing of matrices">
+      <option name="closed" value="true" />
+      <created>1779826018569</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1779826018569</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -286,6 +315,10 @@
     <MESSAGE value="Add better error messages and ability __repr__ to functions" />
     <MESSAGE value="Add repl" />
     <MESSAGE value="Allow for negation, addition and subtraction" />
-    <option name="LAST_COMMIT_MESSAGE" value="Allow for negation, addition and subtraction" />
+    <MESSAGE value="Allow for print statements and column vectors" />
+    <MESSAGE value="Add constants" />
+    <MESSAGE value="Math helper for matrix operations such as multiplication" />
+    <MESSAGE value="Add formatting for nice printing of matrices" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add formatting for nice printing of matrices" />
   </component>
 </project>
