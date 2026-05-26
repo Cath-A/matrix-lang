@@ -1,13 +1,20 @@
 """Matrix value type for matrix-lang."""
 from __future__ import annotations
 from errors import *
+from math_helpers import *
+from constants import *
 
 
 class Matrix:
-    """A matrix value.
+    """A 2D matrix of numeric values.
+
+    Data Representation:
+        - Stored as a list of rows
+        - Each row is a list of numbers (int or floats)
+        - All rows have equal length
 
     Instance Attributes:
-        - rows: the matrix data as a list of lists
+        - rows: the matrix data, where each element is a row of values
 
     Representation Invariants:
         - len(rows) > 0
@@ -49,7 +56,7 @@ class Matrix:
         if not isinstance(other, Matrix):
             raise MatrixTypeError(f"Cannot add Matrix and {type(other).__name__}")
 
-        if self.dimensions() != other.dimensions():
+        elif self.dimensions() != other.dimensions():
             raise MatrixShapeError(
                 f"Cannot add matrices with shapes "
                 f"{self.num_rows()}x{self.num_cols()} and "
@@ -75,16 +82,129 @@ class Matrix:
 
         return self + (-other)
 
+    def __mul__(self, other: int | float | Matrix) -> Matrix:
+        """Return the matrix multiplication of self * other"""
+        if isinstance(other, (int, float)):
+            return type(self)([
+                [value * other for value in row]
+                for row in self.rows
+            ])
+
+        if isinstance(other, Matrix):
+            if self.num_cols() != other.num_rows():
+                raise MatrixShapeError(
+                    f"Invalid matrix multiplication: "
+                    f"{self.num_rows()}x{self.num_cols()} * "
+                    f"{other.num_rows()}x{other.num_cols()} (inner dimensions must match)"
+                )
+
+            return matrix_multiply(self, other)
+
+        raise MatrixTypeError(f"Cannot multiply Matrix and {type(other).__name__}")
+
+    def __rmul__(self, other: int | float) -> Matrix:
+        """Return the scalar multiplication of other * self."""
+        if isinstance(other, (int, float)):
+            return self * other
+
+        raise MatrixTypeError(f"Cannot multiply {type(other).__name__} and Matrix")
+
+    def __getitem__(self, key):
+        """Get matrix elements, rows, or columns via indexing.
+
+        Supports:
+            - A[i, j]: element at row i, column j
+            - A[i, :]: row i
+            - A[:, j]: column j
+            - A[i]: row i (fallback)
+
+        Instance Attributes:
+            - key: indexing key (int or tuple of int/slice(None))
+        """
+        if isinstance(key, tuple):
+            i, j = key
+            if i == slice(None) and isinstance(j, int):
+                return [row[j] for row in self.rows]
+
+            if j == slice(None) and isinstance(i, int):
+                return self.rows[i]
+
+            if isinstance(i, int) and isinstance(j, int):
+                return self.rows[i][j]
+
+        return self.rows[key]
 
     def __repr__(self) -> str:
         return f'Matrix({self.rows})'
 
+    def _stringify_rows(self) -> list[list[str]]:
+        """Return the matrix rows with all values converted to strings."""
+        rows = []
 
-class Vector(Matrix):
-    """A vector value.
+        for row in self.rows:
+            str_row = []
+            for value in row:
+                str_row.append(str(value))
+            rows.append(str_row)
+
+        return rows
+
+    def _column_widths(self, rows: list[list[str]]) -> list[int]:
+        """Return the maximum width of each matrix column."""
+        num_cols = self.num_cols()
+        widths = [0] * num_cols
+
+        for row in rows:
+            for j, value in enumerate(row):
+                widths[j] = max(widths[j], len(value))
+
+        return widths
+
+    def _format_row(self, row: list[str], widths: list[int]) -> str:
+        """Return a padded string representation of a matrix row."""
+        formatted = []
+
+        for value, width in zip(row, widths):
+            formatted.append(value.rjust(width))
+
+        return COLUMN_SEPARATOR.join(formatted)
+
+    def _row_brackets(self, row_index: int) -> tuple[str, str]:
+        """Return the left and right brackets for a rendered row."""
+        if row_index == 0:
+            return LEFT_TOP, RIGHT_TOP
+        elif row_index == self.num_rows() - 1:
+            return LEFT_BOTTOM, RIGHT_BOTTOM
+        else:
+            return LEFT_MIDDLE, RIGHT_MIDDLE
+
+    def _render_lines(self) -> list[str]:
+        """Return the formatted matrix as a list of rendered lines."""
+        lines = []
+        rows = self._stringify_rows()
+        widths = self._column_widths(rows)
+
+        for i in range(self.num_rows()):
+            left, right = self._row_brackets(i)
+            formatted_row = self._format_row(rows[i], widths)
+            lines.append(left + formatted_row + right)
+
+        return lines
+
+    def __str__(self) -> str:
+        """Return a formatted string representation of the matrix."""
+        return ROW_SEPARATOR.join(self._render_lines())
+
+
+class ColumnVector(Matrix):
+    """A column vector (n x 1 matrix).
+
+    Data Representation:
+        - Stored as a matrix with exactly one column
+        - Each row contains a single numeric value
 
     Instance Attributes:
-        - rows: the vector data as a list of ints
+        - rows: list of single-element rows
 
     Representation Invariants:
         - self.num_cols() == 1
@@ -92,11 +212,36 @@ class Vector(Matrix):
     rows: list[list[int | float]]
 
     def __init__(self, rows: list[list[int | float]]) -> None:
-        """Initialise a new vector."""
+        """Initialise a new column vector."""
         super().__init__(rows)
 
         if self.num_cols() != 1:
-            raise ValueError("Vector must have exactly one column")
+            raise ValueError("The column vector must have exactly one column")
 
     def __repr__(self) -> str:
         return f'Vector({self.rows})'
+
+
+class RowVector(Matrix):
+    """A row vector (1 x n matrix).
+
+    Data Representation:
+        - Stored as a single row containing multiple values
+
+    Instance Attributes:
+        - rows: a list containing exactly one row
+
+    Representation Invariants:
+        - self.num_rows() == 1
+    """
+    rows: list[list[int | float]]
+
+    def __init__(self, rows: list[list[int | float]]) -> None:
+        """Initialise a new row vector."""
+        super().__init__(rows)
+
+        if self.num_rows() != 1:
+            raise ValueError("Row vector must have exactly one row")
+
+    def _row_brackets(self, row_index: int) -> tuple[str, str]:
+        return ROW_VECTOR_LEFT, ROW_VECTOR_RIGHT

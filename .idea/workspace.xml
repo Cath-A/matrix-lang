@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03bdf9f7-dbf3-45d8-9d79-f7a1864e1216" name="Changes" comment="Add repl">
-      <change afterPath="$PROJECT_DIR$/src/errors.py" afterDir="false" />
+    <list default="true" id="03bdf9f7-dbf3-45d8-9d79-f7a1864e1216" name="Changes" comment="Allow for negation, addition and subtraction">
+      <change afterPath="$PROJECT_DIR$/src/math_helpers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repl.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ast_nodes.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ast_nodes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lexer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/matrix.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.ml" beforeDir="false" afterPath="$PROJECT_DIR$/test.ml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,7 +250,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779572334834</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Allow for negation, addition and subtraction">
+      <option name="closed" value="true" />
+      <created>1779622477592</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1779622477592</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -277,6 +285,7 @@
     <MESSAGE value="Implement _parse_addition, _parse_multiplication, and basics of _parse_atom" />
     <MESSAGE value="Add better error messages and ability __repr__ to functions" />
     <MESSAGE value="Add repl" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add repl" />
+    <MESSAGE value="Allow for negation, addition and subtraction" />
+    <option name="LAST_COMMIT_MESSAGE" value="Allow for negation, addition and subtraction" />
   </component>
 </project>
