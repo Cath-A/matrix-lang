@@ -22,13 +22,28 @@ class Matrix:
     """
     rows: list[list[int | float]]
 
+    def __new__(cls, rows: list[list[int | float]]):
+        if cls is Matrix:
+            if len(rows) == 1 and len(rows[0]) == 1:
+                return rows[0][0]
+            if len(rows) == 1:
+                instance = object.__new__(RowVector)
+                return instance
+            if all(len(row) == 1 for row in rows):
+                instance = object.__new__(ColumnVector)
+                return instance
+
+            return object.__new__(cls)
+
+
     def __init__(self, rows: list[list[int | float]]) -> None:
         """Initialise a new matrix."""
+        if not isinstance(self, Matrix):
+            return
         if len(rows) == 0:
             raise ValueError('Matrix cannot be empty')
         if any(len(row) != len(rows[0]) for row in rows):
             raise ValueError('All rows must be the same length')
-
         self.rows = rows
 
     def num_rows(self) -> int:
