@@ -1,7 +1,7 @@
 """AST node defintions for matrix-lang."""
 from matrix import *
 from typing import Optional, Any
-from constants import BUILTINS
+from builtin_funcs import BUILTINS
 
 
 class Statement:
@@ -194,10 +194,6 @@ class MatrixLiteral(Expr):
 
     def evaluate(self, env: dict[str, Any]) -> Any:
         rows = [[expr.evaluate(env) for expr in row] for row in self.rows]
-        if all(len(row) == 1 for row in rows):
-            return ColumnVector(rows)
-        if len(rows) == 1:
-            return RowVector(rows)
         return Matrix(rows)
 
     def __repr__(self) -> str:

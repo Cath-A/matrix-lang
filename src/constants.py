@@ -1,7 +1,3 @@
-BUILTINS = {
-    'print': print
-}
-
 """Rendering constants"""
 # Matrix brackets
 LEFT_TOP = '⎡'
