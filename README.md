@@ -45,7 +45,6 @@ Then just type matrix-lang code. Type `exit` or `quit` to leave.
 **Immediate**
 - change identity(n) to I_n (so also add support for special names)
 - deal with printing large matrices
-- move repl out of src
 
 **Future**
 - While loops

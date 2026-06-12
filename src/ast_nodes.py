@@ -1,4 +1,5 @@
-"""AST node defintions for matrix-lang."""
+"""AST node definitions for matrix-lang."""
+
 from matrix import *
 from typing import Optional, Any
 from builtin_funcs import BUILTINS
@@ -20,7 +21,7 @@ class Statement:
         raise NotImplementedError
 
 
-"""Statements"""
+# ── Statements ────────────────────────────────────────────────────────────────
 
 
 class Expr(Statement):
@@ -56,10 +57,10 @@ class Assign(Statement):
 
 
 class Print(Statement):
-    """A statement representing a call to the `print` function.
+    """A statement representing a call to the built-in print function.
 
     Instance Attributes:
-        - argument: The argument expression to the `print` function.
+        - argument: the expression whose value will be printed
     """
     def __init__(self, argument: Expr) -> None:
         """Initialise a new Print node."""
@@ -75,7 +76,8 @@ class Print(Statement):
         print(self.argument.evaluate(env))
 
 
-""" Control flow statements"""
+
+# ── Control flow ──────────────────────────────────────────────────────────────
 
 
 class If(Statement):
@@ -182,17 +184,24 @@ class Scalar(Expr):
 
 
 class MatrixLiteral(Expr):
-    """A matrix literal.
+    """A matrix literal written as [r1c1, r1c2; r2c1, r2c2] in source.
 
     Instance Attribute:
-        - m: the value of the matrix
+        - rows: a list of rows, each row being a list of Expr nodes
     """
     rows: list[list[Expr]]
 
     def __init__(self, rows: list[list[Expr]]) -> None:
+        """Initialise a new MatrixLiteral node."""
         self.rows = rows
 
     def evaluate(self, env: dict[str, Any]) -> Any:
+        """Evaluate all element expressions and construct a Matrix.
+
+        Delegates shape promotion to Matrix.__new__: a 1x1 result becomes
+        a scalar, 1xn becomes a RowVector, nx1 becomes a ColumnVector,
+        and anything else becomes a Matrix.
+        """
         rows = [[expr.evaluate(env) for expr in row] for row in self.rows]
         return Matrix(rows)
 
@@ -230,6 +239,7 @@ class UnaryOp(Expr):
             return -value
         if self.op == '+':
             return value
+        raise SyntaxError(f"Unknown unary operator '{self.op}'")
 
         raise SyntaxError(f"Unknown unary operator {self.op}")
 
@@ -260,12 +270,7 @@ class BinOp(Expr):
         self.right = right
 
     def evaluate(self, env: dict[str, Any]) -> Any:
-        """Return the *value* of this expression.
-
-        >>> expr = BinOp(Scalar(10.5), '+', Scalar(30))
-        >>> expr.evaluate()
-        40.5
-        """
+        """Evaluate and apply the binary operator to both operands."""
         left = self.left.evaluate(env)
         right = self.right.evaluate(env)
 
@@ -278,10 +283,10 @@ class BinOp(Expr):
         elif self.op == '/':
             return left / right
         else:
-            raise TypeError(f"Unsupported operator '{self.op}' for evaluated values")
+            raise TypeError(f"Unsupported operator '{self.op}'")
 
     def __repr__(self) -> str:
-        return f'BinOp({self.left}, {self.op}, {self.right})'
+        return f'BinOp({self.left}, {self.op!r}, {self.right})'
 
 
 class Name(Expr):
@@ -326,7 +331,6 @@ class FuncCall(Expr):
         self.name = name
         self.args = args
 
-    # TODO: implement FuncCall evaluate
     def evaluate(self, env: dict[str, Any]) -> Any:
         """Evaluate this function call."""
         evaluated_args = [arg.evaluate(env) for arg in self.args]
@@ -340,7 +344,9 @@ class FuncCall(Expr):
         return f'FuncCall({self.name}, {self.args})'
 
 
-# Module
+# ── Module ────────────────────────────────────────────────────────────────────
+
+
 class Module:
     """A class representing a full matrix-lang program.
 
@@ -353,8 +359,10 @@ class Module:
         """Initialise a new module with the given body."""
         self.body = body
 
-    def evaluate(self, env: dict = None) -> None:
-        """Evaluate this statement with the given environment.
+    def evaluate(self, env: dict[str, Any] = None) -> None:
+        """Evaluate all statements in order with the given environment.
+
+        Creates a fresh empty environment if none is provided.
         """
         if env is None:
             env = {}
